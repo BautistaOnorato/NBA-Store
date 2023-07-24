@@ -71,7 +71,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
       router.push(`/${params.storeId}/billboards`)
       router.refresh()
-      toast.success("Store deleted")
+      toast.success("Billboard deleted")
     } catch (error) {
       toast.error("Something went wrong")
     } finally {
