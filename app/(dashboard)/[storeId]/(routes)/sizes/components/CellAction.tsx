@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react'
-import { CategoryColumn } from './Columns'
+import { SizeColumn } from './Columns'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import AlertModal from '@/components/ui/modals/AlertModal'
@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 
 interface CellActionProps {
-  data: CategoryColumn
+  data: SizeColumn
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -28,9 +28,9 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/categories/${data.id}`)
+      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`)
       router.refresh()
-      toast.success("Category deleted")
+      toast.success("Size deleted")
     } catch (error) {
       toast.error("Something went wrong")
     } finally {
@@ -39,7 +39,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   }
 
   const onUpdate = () => {
-    router.push(`/${params.storeId}/categories/${data.id}`)
+    router.push(`/${params.storeId}/sizes/${data.id}`)
   }
 
   return (
