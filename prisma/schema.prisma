@@ -30,6 +30,7 @@ model Billboard {
   label     String
   imageUrl  String
   category  Category[]
+  team      Team[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
@@ -55,6 +56,8 @@ model Team {
   id               String    @id @default(uuid())
   storeId          String
   store            Store     @relation("StoreToTeam", fields: [storeId], references: [id])
+  billboardId      String
+  billboard        Billboard @relation(fields: [billboardId], references: [id])
   Product          Product[]
   name             String
   primaryColorId   String
@@ -68,6 +71,7 @@ model Team {
   @@index([storeId])
   @@index([primaryColorId])
   @@index([secondaryColorId])
+  @@index([billboardId])
 }
 
 model Color {

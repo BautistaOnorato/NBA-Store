@@ -37,6 +37,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     []
   )
+  const [page, setPage] = useState(1)
 
   const table = useReactTable({
     data,
@@ -49,6 +50,20 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   })
+
+  const onPrevious = () => {
+    table.previousPage()
+    if (page > 10) {
+      setPage(page - 10)
+    }
+  }
+
+  const onNext = () => {
+    table.nextPage()
+    if (page < (data.length - 10)) {
+      setPage(page + 10)
+    }
+  }
 
   return (
     <div>
@@ -107,10 +122,13 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
+        <span className="text-sm mr-3 text-muted-foreground">
+          {data.length > 0 ? page : 0} - {data.length < page + 9 ? data.length : page + 9} of {data.length} rows
+        </span>
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
+          onClick={onPrevious}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
@@ -118,7 +136,7 @@ export function DataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
+          onClick={onNext}
           disabled={!table.getCanNextPage()}
         >
           Next
