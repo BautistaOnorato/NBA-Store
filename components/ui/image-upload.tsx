@@ -9,7 +9,7 @@ import Image from "next/image"
 interface ImageUploadProps {
   disabled?: boolean
   onChange: (url: string) => void
-  onRemove: () => void
+  onRemove: (url: string) => void
   value: string[]
 }
 
@@ -35,7 +35,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ disabled, onChange, onRemove,
           value.map(url => (
             <div key={url} className="relative w-[200px] h-[200px] rounded-md overflow-hidden ">
               <div className="absolute z-10 top-2 right-2">
-                <Button type="button" variant="destructive" size="icon" onClick={onRemove} >
+                <Button type="button" variant="destructive" size="icon" onClick={() => onRemove(url)} >
                   <Trash className="h-4 w-4" />
                 </Button>
               </div>
