@@ -11,6 +11,19 @@ export async function GET(req: Request, { params }: { params: { teamId: string }
     const team = await prismadb.team.findFirst({
       where: {
         id: params.teamId
+      },
+      include: {
+        primaryColor: {
+          select: {
+            value: true
+          }
+        },
+        secondaryColor: {
+          select: {
+            value: true
+          }
+        },
+        billboard: true
       }
     })
 

@@ -74,6 +74,18 @@ export async function GET(req: Request, { params } : { params: { storeId: string
     const teams = await prismadb.team.findMany({
       where: {
         storeId: params.storeId
+      },
+      include: {
+        primaryColor: {
+          select: {
+            value: true
+          }
+        },
+        secondaryColor: {
+          select: {
+            value: true
+          }
+        }
       }
     })
 
