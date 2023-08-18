@@ -108,6 +108,8 @@ export async function GET(req: Request, { params } : { params: { storeId: string
     const colorId = searchParams.get("colorId") || undefined;
     const isFeatured = searchParams.get("isFeatured");
     const isRetro = searchParams.get("isRetro");
+    const offset = searchParams.get("offset") || 0;
+    const limit = searchParams.get("limit") || 10;
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 })
@@ -133,7 +135,9 @@ export async function GET(req: Request, { params } : { params: { storeId: string
       },
       orderBy: {
         createdAt: "desc"
-      }
+      },
+      skip: Number(offset),
+      take: Number(limit)
     })
 
     return NextResponse.json(products)

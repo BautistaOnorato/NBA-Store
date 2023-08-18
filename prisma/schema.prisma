@@ -65,6 +65,7 @@ model Team {
   secondaryColorId String
   secondaryColor   Color     @relation("SecondaryColor", fields: [secondaryColorId], references: [id])
   imageUrl         String
+  conference       Conference
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 
@@ -166,4 +167,9 @@ model OrderItems {
 
   @@index([orderId])
   @@index([productId])
+}
+
+enum Conference {
+  West
+  East
 }

@@ -6,7 +6,7 @@ export async function POST(req: Request, { params } : { params: { storeId: strin
   try {
     const { userId } = auth()
     const body = await req.json()
-    const { name, imageUrl, billboardId, primaryColorId, secondaryColorId } = body
+    const { name, imageUrl, billboardId, primaryColorId, secondaryColorId, conference } = body
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 })
@@ -14,6 +14,10 @@ export async function POST(req: Request, { params } : { params: { storeId: strin
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 })
+    }
+
+    if (!conference) {
+      return new NextResponse("Conference is required", { status: 400 })
     }
 
     if (!imageUrl) {
@@ -54,6 +58,7 @@ export async function POST(req: Request, { params } : { params: { storeId: strin
         billboardId,
         primaryColorId,
         secondaryColorId,
+        conference,
         storeId: params.storeId
       }
     })

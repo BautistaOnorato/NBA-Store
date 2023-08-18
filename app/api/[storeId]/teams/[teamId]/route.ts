@@ -38,10 +38,14 @@ export async function PATCH(req: Request, { params }: { params: { teamId: string
   try {
     const { userId } = auth()
     const body = await req.json()
-    const { name, imageUrl, billboardId, primaryColorId, secondaryColorId } = body
+    const { name, imageUrl, billboardId, primaryColorId, secondaryColorId, conference } = body
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 })
+    }
+
+    if (!conference) {
+      return new NextResponse("Conference is required", { status: 400 })
     }
 
     if (!name) {
@@ -92,7 +96,8 @@ export async function PATCH(req: Request, { params }: { params: { teamId: string
         imageUrl,
         billboardId,
         primaryColorId,
-        secondaryColorId
+        secondaryColorId,
+        conference
       }
     })
 

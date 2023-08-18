@@ -30,7 +30,8 @@ const formSchema = z.object({
   imageUrl: z.string().min(1),
   billboardId: z.string().min(1),
   primaryColorId: z.string().min(1),
-  secondaryColorId: z.string().min(1)
+  secondaryColorId: z.string().min(1),
+  conference: z.string().min(4).max(4)
 })
 
 type TeamFormValues = z.infer<typeof formSchema>
@@ -53,7 +54,8 @@ const TeamForm: React.FC<TeamFormProps> = ({ initialData, billboards, colors }) 
       imageUrl: "",
       billboardId: "",
       primaryColorId: "",
-      secondaryColorId: ""
+      secondaryColorId: "",
+      conference: ""
     },
   });
 
@@ -246,6 +248,36 @@ const TeamForm: React.FC<TeamFormProps> = ({ initialData, billboards, colors }) 
                               </SelectItem>
                           ))
                         }
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="conference"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Conference</FormLabel>
+                  <FormControl>
+                  <div className="flex items-center gap-x-4">
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      value={field.value}
+                      disabled={loading}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? <SelectValue defaultValue={field.value}  /> : <span>Select a conference</span>}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value={"West"}>Western conference</SelectItem>
+                        <SelectItem value={"East"}>Eastern conference</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
